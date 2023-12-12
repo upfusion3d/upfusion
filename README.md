@@ -118,7 +118,7 @@ If you find this work useful, please consider citing UpFusion as:
 @article{upfusion2023,
   author    = {Nagoor Kani, Bharath Raj and Lee, Hsin-Ying and Tulyakov, Sergey and Tulsiani, Shubham},
   title     = {UpFusion: Novel View Diffusion from Unposed Sparse View Observations},
-  journal	= {arXiv preprint arXiv:2312.06661},
+  journal   = {arXiv preprint arXiv:2312.06661},
   year      = {2023},
 }
 ```
