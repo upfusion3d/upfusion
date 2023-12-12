@@ -52,7 +52,9 @@ pip install ./external/raymarching
 
 ### Model Weights
 
-Download model weights from google drive using this [link](#TODO) and place them in a directory of your choice. 
+Download model weights from google drive using this [link](#TODO) and place them in a directory of your choice.
+
+> NOTE: The model weights link is temporarily unavailable. This would likely get resolved soon, please check back in a few hours!
 
 You can extract the tar file using `tar -xzvf /path/to/weights.tar.gz`. Once extracted, please verify that the directory containing the weights has the following structure:
 
