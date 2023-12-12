@@ -1,0 +1,137 @@
+##################################################################################
+# DINO Parameters
+##################################################################################
+
+dino:
+
+  model:
+
+    model_key: 'dinov2_vitb14'
+    layer_name: 'blocks.8.attn.qkv'
+    num_patches_x: 16
+    num_patches_y: 16
+    out_dim: 768
+
+    ray:
+      num_freqs: 15
+      start_freq: -6
+      parameterize: 'plucker'
+
+##################################################################################
+# UpSRT Parameters
+##################################################################################
+
+srt:
+  model:
+    num_pixel_queries: 7168
+    transformer_dim: 768
+
+    # Boolean that enables or disables using variable number of input views. The number of input
+    # views is constant within a batch, but can vary across batches.
+    enable_var_views: True
+
+    # Min number of input views per instance when enable_var_views is True.
+    min_views: 1
+
+    # Max number of input views per instance when enable_var_views is True.
+    max_views: 6
+
+    ray:
+      num_freqs: 15
+      start_freq: -6
+      parameterize: 'plucker'
+      view_space: False
+
+    feature_extractor:
+      n_blocks: 3
+      num_patches_x: 16 # Set same as dino.model.num_patches_x
+      num_patches_y: 16 # Set same as dino.model.num_patches_y
+      image_feature_dim: 768  # Set same as dino.model.out_dim
+
+    ray_decoder:
+      num_decoder_layers: 4
+      transformer_dim: 768 # Set same as srt.model.transformer_dim
+
+    scene_encoder:
+      num_encoder_layers: 8
+      transformer_dim: 768 # Set same as srt.model.transformer_dim
+
+  training:
+    load_path: "not_used"
+    runs_dir: "not_used"
+    exp_tag: "not_used"
+    num_epochs: 20000
+    batch_size: 6
+    num_workers: 2
+
+    optim:
+      lr: 1e-5
+
+    logging:
+      visualize_after: 2000 # Visualize after how many iterations
+
+    saving:
+      save_after: 2000 # Save after how many iterations
+
+##################################################################################
+# Diffusion Parameters
+##################################################################################
+
+diffusion:
+
+  model:
+
+    # One among "DF", "SLT" or "DF+SLT"
+    cond_type: "DF+SLT"
+
+    # Config used to build the control net model
+    control_net_model_config_path: ./control_net/models/cldm_v15_dfslt.yaml
+
+    # Color to be used in the control net prompt 
+    control_net_prompt_color: "white"
+
+    # One among "default" or "class-specific"
+    control_net_prompt_type: "default"
+
+    # Boolean that controls the sd_locked attribute
+    control_net_sd_locked: False
+
+    # One among "pred_rgb" or "pre_rgb_mlp_features"
+    srt_decoder_return_type: "pre_rgb_mlp_features"
+
+    # Can take null or a list of 2 numbers
+    query_feature_size: [32, 32]
+
+    # CFG strategy to be used
+    cfg_type: "F1"
+
+    # Guidance scale(s) for the specified cfg_type
+    unconditional_guidance_scale: 9.0
+
+  training:
+    load_path: "not_used"
+    runs_dir: "not_used"
+    exp_tag: "not_used"
+    num_epochs: 20000
+    batch_size: 4
+    num_workers: 4
+    srt_load_path: "not_used"
+    save_only_pred_rgb: False
+    load_optim: True
+    break_train_at: 10000000 # Global step to stop training at
+
+    # If True, conditions are dropped out according to a pre-set strategy.
+    enable_condition_dropout: True
+
+    # Only used if enable_condition_dropout is True. Please refer to the code for the exact strategy through which
+    # condition_dropout_frac is used.
+    condition_dropout_frac: 0.05
+
+    optim:
+      lr: 1e-5 # 1e-5
+
+    logging:
+      visualize_after: 1000 # 2000 # Visualize after how many iterations
+
+    saving:
+      save_after: 1000 # Save after how many iterations
