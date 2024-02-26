@@ -27,7 +27,7 @@ def add_margin(pil_img, color, size):
     return result
 
 def _predict_bbox_for_img(image):
-    image_nobg = remove(image.convert('RGBA'), alpha_matting=True)
+    image_nobg = remove(Image.fromarray(image).convert('RGBA'), alpha_matting=True)
     alpha = np.asarray(image_nobg)[:,:,-1]
     x_nonzero = np.nonzero(alpha.sum(axis=0))
     y_nonzero = np.nonzero(alpha.sum(axis=1))
@@ -35,7 +35,7 @@ def _predict_bbox_for_img(image):
     y_min = int(y_nonzero[0].min())
     x_max = int(x_nonzero[0].max())
     y_max = int(y_nonzero[0].max())
-    return x_min, y_min, x_max, y_max
+    return np.array([x_min, y_min, x_max, y_max])
 
 def create_masks_given_bbox(in_root, out_root, sam_ckpt_path):
 
