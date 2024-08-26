@@ -1,8 +1,8 @@
 # UpFusion: Novel View Diffusion from Unposed Sparse View Observations
 
-### ECCV 2024
-
 ### [Project Page](https://upfusion3d.github.io/) | [ArXiv](https://arxiv.org/abs/2312.06661)
+
+### ECCV 2024
 
 [Bharath Raj Nagoor Kani](https://bharathrajn.com/)<sup>1</sup>, [Hsin-Ying Lee](http://hsinyinglee.com/)<sup>2</sup>, [Sergey Tulyakov](http://www.stulyakov.com/)<sup>2</sup>, [Shubham Tulsiani](https://shubhtuls.github.io/)<sup>1</sup> <br/>
 <sup>1</sup>Carnegie Mellon University, <sup>2</sup>Snap Research
